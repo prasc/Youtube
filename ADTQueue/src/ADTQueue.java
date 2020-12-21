@@ -10,57 +10,57 @@ public class ADTQueue<T> {
         }
     }
 
-    private Node top;
+    private Node front;
 
     public ADTQueue() {
-        top = null;
+        front = null;
     }
 
     public void enqueue(T item) {
-        if (top == null) {
-            top = new Node(item, null);
-            top.next = top;
+        if (front == null) {
+            front = new Node(item, null);
+            front.next = front;
         } else {
-            top.next = new Node(item, top.next);
-            top = top.next;
+            front.next = new Node(item, front.next);
+            front = front.next;
         }
     }
 
     public T peek() {
         if (isEmpty()) throw new RuntimeException("The list is empty");
-        return top.next.item;
+        return front.next.item;
     }
 
     public T dequeue() {
         if (isEmpty()) throw new RuntimeException("The list is empty");
 
-        T temp = top.next.item;
+        T temp = front.next.item;
 
-        if (top == top.next) {
-            top = null;
+        if (front == front.next) {
+            front = null;
         } else {
-            top.next = top.next.next;
+            front.next = front.next.next;
         }
 
         return temp;
     }
 
     public void dequeueAll() {
-        top = null;
+        front = null;
     }
 
     public boolean isEmpty() {
-        return top == null;
+        return front == null;
     }
 
     public String toString() {
         String str = "[";
-        if (top == null) return "Empty";
+        if (front == null) return "Empty";
 
-        Node curr = top.next;
+        Node curr = front.next;
         str = str + curr.item;
 
-        while (curr != top) {
+        while (curr != front) {
             curr = curr.next;
             str = str + ", "  + curr.item;
         }
